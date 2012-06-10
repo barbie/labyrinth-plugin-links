@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth::Plugin::Links",
-    "version": "1.00",
+    "version": "1.01",
     "abstract": "Links plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -23,17 +23,19 @@
     "prereqs" : {
         "test" : {
             "requires": {
+                "IO::File": "0",
                 "Test::More": "0.70"
             },
             "recommends": {
                 "Test::Pod": "1.00",
                 "Test::Pod::Coverage": "0.08",
-                "Test::CPAN::Meta": "0.18",
-                "Test::CPAN::Meta::JSON": "0.10"
+                "Test::CPAN::Meta": "0",
+                "Test::CPAN::Meta::JSON": "0"
             }
         },
         "runtime" : {
             "requires" : {
+              "perl": "5.006",
               "Labyrinth": "5.10"
             }
         }
@@ -42,7 +44,7 @@
     "provides": {
         "Labyrinth::Plugin::Links": {
             "file": "lib/Labyrinth/Plugin/Links.pm",
-            "version": "1.00"
+            "version": "1.01"
         }
     },
     "no_index": {

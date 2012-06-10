@@ -1,12 +1,25 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
 use 5.006;
+
 use ExtUtils::MakeMaker;
+
 WriteMakefile(
-    NAME            => 'Labyrinth::Plugin::Links',
-    VERSION_FROM    => 'lib/Labyrinth/Plugin/Links.pm',
-    PREREQ_PM       => {
-        'Labyrinth'         => '5.10'
-    },
-    NO_META     => 1,
-    ABSTRACT    => 'Links plugin for the Labyrinth framework',
-    AUTHOR      => 'Barbie <barbie@cpan.org>',
+    AUTHOR              => 'Barbie <barbie@cpan.org>',
+    NAME                => 'Labyrinth::Plugin::Links',
+    VERSION_FROM        => 'lib/Labyrinth/Plugin/Links.pm',
+    ABSTRACT            => 'Links plugin for the Labyrinth framework',
+    NO_META             => 1,
+    PREREQ_PM           => {
+
+        # prereqs
+        'Labyrinth'             => '5.10',
+
+        # build/test prereqs
+        'Test::More'            => '0.70',
+        'IO::File'              => '0'
+
+    }
 );
