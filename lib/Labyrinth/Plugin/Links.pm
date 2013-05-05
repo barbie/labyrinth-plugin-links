@@ -65,7 +65,6 @@ my $SAVESQL     = 'SaveLink';
 my $ADDSQL      = 'AddLink';
 my $GETSQL      = 'GetLinkByID';
 my $DELETESQL   = 'DeleteLink';
-my $LEVEL       = ADMIN;
 
 my %adddata = (
     linkid      => 0,
@@ -134,7 +133,7 @@ if missing adds 'http://'.
 =cut
 
 sub Admin {
-    return  unless(AccessUser($LEVEL));
+    return  unless(AccessUser(EDITOR));
     if($cgiparams{doaction}) {
            if($cgiparams{doaction} eq 'Delete' ) { Delete();  }
     }
@@ -143,20 +142,20 @@ sub Admin {
 }
 
 sub Add {
-    return  unless AccessUser($LEVEL);
+    return  unless AccessUser(EDITOR);
     $tvars{data}{ddcats} = CatSelect();
 }
 
 sub Edit {
-    return  unless AccessUser($LEVEL);
-    return  unless AuthorCheck($GETSQL,$INDEXKEY,$LEVEL);
+    return  unless AccessUser(EDITOR);
+    return  unless AuthorCheck($GETSQL,$INDEXKEY,EDITOR);
     $tvars{data}{ddcats} = CatSelect($tvars{data}{catid});
     $tvars{data}{ddpublish} = PublishSelect($tvars{data}{publish},1);
 }
 
 sub Save {
-    return  unless AccessUser($LEVEL);
-    return  unless AuthorCheck($GETSQL,$INDEXKEY,$LEVEL);
+    return  unless AccessUser(EDITOR);
+    return  unless AuthorCheck($GETSQL,$INDEXKEY,EDITOR);
     for(keys %fields) {
            if($fields{$_}->{html} == 1) { $cgiparams{$_} = CleanHTML($cgiparams{$_}) }
         elsif($fields{$_}->{html} == 2) { $cgiparams{$_} = CleanTags($cgiparams{$_}) }
@@ -173,7 +172,7 @@ sub Save {
 }
 
 sub Delete {
-    return  unless AccessUser($LEVEL);
+    return  unless AccessUser(ADMIN);
     my @ids = CGIArray('LISTED');
     return  unless @ids;
     $dbi->DoQuery($DELETESQL,{ids=>join(",",@ids)});
@@ -213,7 +212,7 @@ Returns a HTML drop-down list of link categories.
 =cut
 
 sub CatAdmin {
-    return  unless(AccessUser($LEVEL));
+    return  unless(AccessUser(EDITOR));
     if($cgiparams{doaction}) {
            if($cgiparams{doaction} eq 'Delete' ) { CatDelete();  }
     }
@@ -222,13 +221,13 @@ sub CatAdmin {
 }
 
 sub CatEdit {
-    return  unless AccessUser($LEVEL);
-    return  unless AuthorCheck('GetCategoryByID','catid',$LEVEL);
+    return  unless AccessUser(EDITOR);
+    return  unless AuthorCheck('GetCategoryByID','catid',EDITOR);
 }
 
 sub CatSave {
-    return  unless AccessUser($LEVEL);
-    return  unless AuthorCheck('GetCategoryByID','catid',$LEVEL);
+    return  unless AccessUser(EDITOR);
+    return  unless AuthorCheck('GetCategoryByID','catid',EDITOR);
     for(keys %cat_fields) {
            if($cat_fields{$_}->{html} == 1) { $cgiparams{$_} = CleanHTML($cgiparams{$_}) }
         elsif($cat_fields{$_}->{html} == 2) { $cgiparams{$_} = CleanTags($cgiparams{$_}) }
@@ -244,7 +243,7 @@ sub CatSave {
 }
 
 sub CatDelete {
-    return  unless AccessUser($LEVEL);
+    return  unless AccessUser(ADMIN);
     my @ids = CGIArray('LISTED');
     return  unless @ids;
     $dbi->DoQuery('DeleteCategory',{ids=>join(",",@ids)});
@@ -274,7 +273,7 @@ Miss Barbell Productions, L<http://www.missbarbell.co.uk/>
 
 =head1 COPYRIGHT & LICENSE
 
-  Copyright (C) 2002-2012 Barbie for Miss Barbell Productions
+  Copyright (C) 2002-2013 Barbie for Miss Barbell Productions
   All Rights Reserved.
 
   This module is free software; you can redistribute it and/or
