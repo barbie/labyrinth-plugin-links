@@ -3,6 +3,7 @@ Changes for the Labyrinth-Plugin-Links
         - change file dates changed to meet W3CDTF standards.
         - added LICENSE file.
         - rework access level requirements for admin functions.
+        - templates updated for accessibility and XHTML validation.
 
 1.01	2012-06-10
         - META tests no longer require specific versions.

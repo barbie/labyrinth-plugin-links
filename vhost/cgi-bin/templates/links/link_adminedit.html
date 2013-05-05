@@ -31,16 +31,16 @@
 <div class="boxer">
 <table class="blocker">
 <tr><th>Category *</th>
-    <td class="red">[% data.catid_err %]</td>
+    <td class="alert">[% data.catid_err %]</td>
     <td>[% data.ddcats %]</td></tr>
 <tr><th>Link *</th>
-    <td class="red">[% data.href_err %]</td>
+    <td class="alert">[% data.href_err %]</td>
     <td><input type="text" name="href" size="55" value="[% data.href %]" /></td></tr>
 <tr><th>Title</th>
-    <td class="red">[% date.title_err %]</td>
+    <td class="alert">[% date.title_err %]</td>
     <td><input type="text" name="title" size="55" value="[% data.title %]" /></td></tr>
 <tr><th>Info</th>
-    <td class="red">[% data.body_err %]</td>
+    <td class="alert">[% data.body_err %]</td>
     <td><textarea name="body" rows="10" cols="45">[% data.body %]</textarea></td></tr>
 </table>
 </div>
