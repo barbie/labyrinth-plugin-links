@@ -93,7 +93,7 @@ Provides a list of all the current links.
 sub List {
     # get link list for current realm
     my @rows = $dbi->GetQuery('hash','GetLinks');
-    $tvars{links} = \@rows;
+    $tvars{links} = \@rows  if(@rows);
 }
 
 =head1 ADMIN INTERFACE METHODS
@@ -175,6 +175,7 @@ sub Delete {
     return  unless AccessUser(ADMIN);
     my @ids = CGIArray('LISTED');
     return  unless @ids;
+
     $dbi->DoQuery($DELETESQL,{ids=>join(",",@ids)});
 }
 
