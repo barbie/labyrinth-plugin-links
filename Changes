@@ -1,9 +1,12 @@
 Changes for the Labyrinth-Plugin-Links
 
-1.01	10/06/2012
-	- META tests no longer require specific versions.
-	- added minimum perl version (5.006).
+        - change file dates changed to meet W3CDTF standards.
+        - added LICENSE file.
+
+1.01	2012-06-10
+        - META tests no longer require specific versions.
+        - added minimum perl version (5.006).
         - reworked Makefile.PL for clarity.
 
-1.00	01/01/2012
-	- first official release
+1.00	2012-01-01
+        - first official release
