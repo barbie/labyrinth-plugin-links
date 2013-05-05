@@ -1,16 +1,27 @@
-<h2>[% IF data.linkid %]Edit[% ELSE %]Add[% END %] Category</h2>
+[% 
+    IF data.linkid ; THEN ; editmode = 'Edit' ; ELSE ; editmode = 'Add' ; END ;
+    title = editmode _ ' Link Category' ;
+
+    crumb2_name = 'Link Category' ;
+    crumb2_href = '/cgi-bin/pages.cgi?act=link-cadmin' ;
+    crumb1_name = editmode ;
+%]
+
+[% INCLUDE "public/tinymce.html" %]
+
+<h2>[% title %]</h2>
 
 <form method="post" action="[% cgipath %]/pages.cgi">
 <input type="hidden" name="act" value="link-csave" />
 <input type="hidden" name="catid" value="[% data.catid || 0 %]" />
 
 <div class="boxer">
-[% IF thanks %]<p>Category saved successfully.[% END %]
+[% IF thanks %]<p>Category saved successfully.</p>[% END %]
 [% IF errmess %]
 [% IF errmess == 1 %]
-<p class="alert">There are invalid or missing fields, as noted by the <span class="red">&empty;</span> symbol.
+<p class="alert">There are invalid or missing fields, as noted by the <span class="red">&empty;</span> symbol.</p>
 [% ELSE %]
-<p class="alert">[% errmess %]
+<p class="alert">[% errmess %]</p>
 [% END %]
 [% END %]
 </div>
@@ -26,6 +37,6 @@
 </table>
 </div>
 
-<p align="center"><input type="submit" value="Save Category" />
+<p class="aligncentre"><input type="submit" value="Save Category" /></p>
 
 </form>

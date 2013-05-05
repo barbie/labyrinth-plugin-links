@@ -1,25 +1,15 @@
-<script language="javascript" type="text/javascript" src="[% webpath %]/js/tiny_mce/tiny_mce.js"></script>
-<script language="javascript" type="text/javascript">
-tinyMCE.init({
-    mode : "textareas",
-    theme : "advanced",
-    plugins : "preview,searchreplace",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,sub,sup,formatselect,hr,|,justifyleft,justifycenter,justifyright,justifyfull",
-    theme_advanced_buttons2 : "bullist,numlist,|,link,unlink,anchor,|,undo,redo,search,replace,|,cleanup,help,preview",
-    theme_advanced_buttons3 : "",
-    theme_advanced_toolbar_location : "top",
-    theme_advanced_toolbar_align : "left",
-    theme_advanced_path_location : "bottom",
-    extended_valid_elements : "hr[class|width|size|noshade]",
-    force_br_newlines : true,
-    force_p_newlines : false,
-    convert_urls : false
-});
-</script>
+[% 
+    IF data.linkid ; THEN ; editmode = 'Edit' ; ELSE ; editmode = 'Add' ; END ;
+    title = editmode _ ' Link' ;
 
+    crumb2_name = 'Link' ;
+    crumb2_href = '/cgi-bin/pages.cgi?act=link-admin' ;
+    crumb1_name = editmode ;
+%]
 
+[% INCLUDE "public/tinymce.html" %]
 
-<h2>[% IF data.linkid %]Edit[% ELSE %]Add[% END %] Link</h2>
+<h2>[% title %]</h2>
 
 <form method="post" action="[% cgipath %]/pages.cgi">
 <input type="hidden" name="act" value="link-save" />
@@ -27,12 +17,12 @@ tinyMCE.init({
 
 <div class="boxer">
 <div class="blocker">
-[% IF thanks %]<p>Link saved successfully.[% END %]
+[% IF thanks %]<p>Link saved successfully.</p>[% END %]
 [% IF errmess %]
 [% IF errmess == 1 %]
-<p class="alert">There are invalid or missing fields, as noted by the <span class="red">&empty;</span> symbol.
+<p class="alert">There are invalid or missing fields, as noted by the <span  class="alert">&empty;</span> symbol.</p>
 [% ELSE %]
-<p class="alert">[% errmess %]
+<p class="alert">[% errmess %]</p>
 [% END %]
 [% END %]
 </div>
@@ -55,6 +45,6 @@ tinyMCE.init({
 </table>
 </div>
 
-<p align="center"><input type="submit" value="Save Link" />
+<p class="aligncentre"><input type="submit" value="Save Link" /></p>
 
 </form>

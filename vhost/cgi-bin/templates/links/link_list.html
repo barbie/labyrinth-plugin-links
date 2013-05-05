@@ -1,4 +1,10 @@
-<h2>Suggested Cool Links</h2>
+[% 
+    title = 'Suggested Cool Links' ;
+
+    crumb1_name = 'Suggested Cool Links' ;
+%]
+
+<h2>[% title %]</h2>
 
 [% catid = 0 %]
 [% FOREACH item = links %]
@@ -13,9 +19,9 @@
     [% END %]
 
     [% IF item.title %]
-        <li><a href="[% item.href %]" title="link to [% item.title %]">[% item.title %]</a>
+        <li><a href="[% item.href %]" title="link to [% item.title %]">[% item.title %]</a></li>
     [% ELSE %]
-        <li><a href="[% item.href %]" title="link to [% item.href %]">[% item.href %]</a>
+        <li><a href="[% item.href %]" title="link to [% item.href %]">[% item.href %]</a></li>
     [% END %]
 
     [% IF item.body %]
@@ -28,6 +34,6 @@
 [% END %]
 
 <p>If you have any link suggestions, or want to report any broken links, please contact
-<a href="mailto:barbie@missbarbell.co.uk">Barbie</a>. Please note that any marketing
+<a href="mailto:barbie@missbarbell.co.uk" title="mail Barbie">Barbie</a>. Please note that any marketing
 link swap requests will be ignored, as I already have a high search engine ranking, and
-have no desire to help you make money.
+have no desire to help you make money.</p>
