@@ -1,5 +1,7 @@
 Changes for the Labyrinth-Plugin-Links
 
+        - fixed distribution name in META.
+
 1.02	2013-05-05
         - change file dates changed to meet W3CDTF standards.
         - added LICENSE file.
