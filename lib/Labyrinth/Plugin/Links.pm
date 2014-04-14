@@ -73,6 +73,8 @@ my %adddata = (
     body        => '',
 );
 
+my $protocol = qr{(?:http|https|ftp|afs|news|nntp|mid|cid|mailto|wais|prospero|telnet|gopher|git)://};
+
 # -------------------------------------
 # The Subs
 
@@ -180,7 +182,7 @@ sub Delete {
 }
 
 sub CheckLink {
-    if($cgiparams{href} && $cgiparams{href} !~ m!^(/|https?|ftp)!) {
+    if($cgiparams{href} && $cgiparams{href} !~ m!^(/|$protocol)!) {
         $cgiparams{href} = 'http://' . $cgiparams{href};
     }
 }

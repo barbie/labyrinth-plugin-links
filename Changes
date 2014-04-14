@@ -1,4 +1,7 @@
 Changes for the Labyrinth-Plugin-Links
+======================================
+
+        - extended protocols acceptable in href string.
 
 1.03	2014-04-10
         - fixed distribution name in META.
