@@ -23,7 +23,12 @@
     "prereqs" : {
         "test" : {
             "requires": {
+                "Config::IniFiles": "0",
+                "File::Basename": "0",
+                "File::Copy": "0",
+                "File::Path": "0",
                 "IO::File": "0",
+                "Module::Pluggable": "0",
                 "Test::More": "0.70"
             },
             "recommends": {
