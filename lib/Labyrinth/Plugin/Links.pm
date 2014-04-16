@@ -48,8 +48,8 @@ my %fields = (
     linkid      => { type => 0, html => 0 },
     catid       => { type => 0, html => 0 },
     href        => { type => 1, html => 1 },
-    title       => { type => 1, html => 1 },
-    body        => { type => 0, html => 1 },
+    title       => { type => 1, html => 3 },
+    body        => { type => 0, html => 2 },
 );
 
 my (@mandatory,@allfields);
