@@ -5,6 +5,7 @@ Changes for the Labyrinth-Plugin-Links
         - database schema moved to UTF8.
         - extended test suite.
         - realigned field validation checks.
+        - added cleanup.
 
 1.03	2014-04-10
         - fixed distribution name in META.

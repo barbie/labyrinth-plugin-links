@@ -85,6 +85,22 @@ sub prep {
     return 1;
 }
 
+sub cleanup {
+    my ($self) = @_;
+
+    # remove test directories
+    rmtree($directory);
+
+    # remove test database
+    eval "use Test::Database";
+    return 0    if($@);
+
+    my $td1 = Test::Database->handle( 'mysql' );
+    return 0    unless($td1);
+
+    $td1->{driver}->drop_database($td1->name);
+}
+
 sub labyrinth {
     my ($self,@plugins) = @_;
 

@@ -1,8 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
 
-use lib qw(/var/www/labyrinth/Core/lib);
-
 use lib qw(t/lib);
 use Fake::Loader;
 
