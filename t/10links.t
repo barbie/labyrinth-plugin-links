@@ -6,7 +6,7 @@ use lib qw(/var/www/labyrinth/Core/lib);
 use lib qw(t/lib);
 use Fake::Loader;
 
-use Test::More tests => 13;
+use Test::More tests => 19;
 
 my $test_vars = {
           'testing' => '0',
@@ -69,6 +69,109 @@ my $test_vars = {
           'randpicwidth' => '400'
         };
 
+my $test_data = { 
+    'links' => [
+        {
+            'body' => undef,
+            'href' => 'http://www.example.com',
+            'category' => 'Category 2',
+            'title' => 'Example Link 2',
+            'orderno' => '2',
+            'catid' => '2',
+            'linkid' => '2'
+        },
+        {
+            'body' => undef,
+            'href' => 'http://www.example.com',
+            'category' => 'Category 3',
+            'title' => 'Example Link 3',
+            'orderno' => '3',
+            'catid' => '3',
+            'linkid' => '3'
+        }
+    ],
+    'cats' => [
+        {
+            'category' => 'Category 2',
+            'orderno' => '2',
+            'catid' => '2'
+        },
+        {
+            'category' => 'Category 3',
+            'orderno' => '3',
+            'catid' => '3'
+        }
+    ],
+    'newcats' => [
+           {
+             'category' => 'Category 2',
+             'orderno' => '2',
+             'catid' => '2'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           }
+    ],
+    'newlinks' => [
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 2',
+             'title' => 'Example Link 2',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '2'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 3',
+             'title' => 'Example Link 3',
+             'orderno' => '3',
+             'catid' => '3',
+             'linkid' => '3'
+           },
+           {
+             'body' => '<p>Blah Blah Blah</p>',
+             'href' => 'http://example.com',
+             'category' => 'Test',
+             'title' => 'Test Link',
+             'orderno' => '4',
+             'catid' => '4',
+             'linkid' => '4'
+           }
+    ],
+    'newcats2' => [
+           {
+             'category' => 'Another Test',
+             'orderno' => '1',
+             'catid' => '5'
+           },
+           {
+             'category' => 'Category 2',
+             'orderno' => '2',
+             'catid' => '2'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           }
+    ]
+};
+
 my $test_add = { 
     ddcats => '<select id="catid" name="catid"><option value="1">Category 1</option><option value="2">Category 2</option><option value="3">Category 3</option></select>'
 };
@@ -123,48 +226,42 @@ is_deeply($vars,$test_vars,'stored variables are the same');
 # TODO - test bad access
 
 # refresh instance
-$loader->labyrinth('Labyrinth::Plugin::Links');
-$loader->set_vars(
-    loggedin    => 1,
-    loginid     => 1,
-);
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1 } );
 
 # test basic admin
 $loader->action('Links::Admin');
 $vars = $loader->vars;
 is_deeply($vars->{data},$test_vars->{links},'stored variables are the same');
 
-# todo - test delete via admin
 
 # refresh instance
-$loader->labyrinth('Labyrinth::Plugin::Links');
-$loader->set_vars(
-    loggedin    => 1,
-    loginid     => 1,
-    data        => undef
-);
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef } );
 
 # test adding a link
 $loader->action('Links::Add');
 $vars = $loader->vars;
 is_deeply($vars->{data}{ddcats},$test_add->{ddcats},'dropdown variables are the same');
 
+
 # refresh instance
-$loader->labyrinth('Labyrinth::Plugin::Links');
-$loader->set_vars(
-    loggedin    => 1,
-    loginid     => 1,
-    data        => undef
-);
-$loader->set_params( linkid => 1 );
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { linkid => 1 } );
 
 # test editing a link
 $loader->action('Links::Edit');
 $vars = $loader->vars;
 is_deeply($vars->{data},$test_edit,'stored variables are the same');
 
+
 # check link changes
 my %hrefs = (
+    ''                      => '',
     'www.example.com'       => 'http://www.example.com',
     'http://example.com'    => 'http://example.com',
     'ftp://example.com'     => 'ftp://example.com',
@@ -181,14 +278,6 @@ for my $href (keys %hrefs) {
     is($params->{href},$hrefs{$href});
 }
 
-# test saving a (new and existing) link
-#$loader->action('Links::Save');
-#$vars = $loader->vars;
-#use Data::Dumper;
-#diag(Dumper($vars));
-#is_deeply($vars,$test_vars,'stored variables are the same');
-
-
 
 # -----------------------------------------------------------------------------
 # Admin Link Category methods
@@ -201,28 +290,19 @@ $loader->action('Links::CatAdmin');
 $vars = $loader->vars;
 is_deeply($vars->{data},$test_cats,'stored variables are the same');
 
-# todo - test delete via admin
 
 # refresh instance
-$loader->labyrinth('Labyrinth::Plugin::Links');
-$loader->set_params( catid => 1 );
-$loader->set_vars(
-    loggedin    => 1,
-    loginid     => 1,
-    data        => undef
-);
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { catid => 1 } );
+
 
 # test editing a link
 $loader->action('Links::CatEdit');
 $vars = $loader->vars;
 is_deeply($vars->{data},$test_cats->[0],'stored variables are the same');
 
-# test saving a (new and existing) link
-#$loader->action('Links::CatSave');
-#$vars = $loader->vars;
-#use Data::Dumper;
-#diag(Dumper($vars));
-#is_deeply($vars,$test_vars,'stored variables are the same');
 
 # test select box list
 #$loader->action('Links::CatSelect');
@@ -230,3 +310,85 @@ is_deeply($vars->{data},$test_cats->[0],'stored variables are the same');
 #use Data::Dumper;
 #diag(Dumper($vars));
 #is_deeply($vars,$test_vars,'stored variables are the same');
+
+
+# -----------------------------------------------------------------------------
+# Admin Link Delete/Save methods - as we change the db
+
+# refresh instance
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { LISTED => [ 1 ], doaction => 'Delete' } );
+
+# test delete via admin
+$loader->action('Links::Admin');
+$vars = $loader->vars;
+is_deeply($vars->{data},$test_data->{links},'stored variables are the same');
+
+
+# refresh instance
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { LISTED => [ 1 ], doaction => 'Delete' } );
+
+# test delete via admin
+$loader->action('Links::CatAdmin');
+$vars = $loader->vars;
+is_deeply($vars->{data},$test_data->{cats},'stored variables are the same');
+
+
+# refresh instance
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { 'category' => 'Test', 'orderno' => '4', 'catid' => '' } );
+
+# test saving a (new and existing) category
+$loader->action('Links::CatSave');
+$loader->action('Links::CatAdmin');
+$vars = $loader->vars;
+is_deeply($vars->{data},$test_data->{newcats},'stored variables are the same');
+
+
+# refresh instance
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { 'body' => '<p>Blah Blah Blah</p>', 'href' => 'http://example.com', 'title' => 'Test Link', 'catid' => '4', 'linkid' => '' } );
+
+# test saving a (new and existing) link
+$loader->action('Links::Save');
+$loader->action('Links::Admin');
+$vars = $loader->vars;
+#use Data::Dumper;
+#diag(Dumper($vars->{data}));
+is_deeply($vars->{data},$test_data->{newlinks},'stored variables are the same');
+
+
+# refresh instance
+refresh(
+    $loader,
+    { loggedin => 1, loginid => 1, data => undef },
+    { 'category' => 'Another Test', 'orderno' => '', 'catid' => '' } );
+
+# test saving a (new and existing) category without order
+$loader->action('Links::CatSave');
+$loader->action('Links::CatAdmin');
+$vars = $loader->vars;
+is_deeply($vars->{data},$test_data->{newcats2},'stored variables are the same');
+
+
+
+
+# -----------------------------------------------------------------------------
+# Private Functions
+
+sub refresh {
+    my ($lab,$vars,$params) = @_;
+
+    $lab->labyrinth('Labyrinth::Plugin::Links');
+    $lab->set_vars( %$vars )        if($vars);
+    $lab->set_params( %$params )    if($params);
+}
