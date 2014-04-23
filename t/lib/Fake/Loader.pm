@@ -50,23 +50,31 @@ sub directory {
 
 sub prep {
     my ($self,@sql) = @_;
+    $self->{error} = '';
 
     # prep test directories
     rmtree($directory);
-    mkpath($directory) or die "cannot create test directory";
+    mkpath($directory) or ( $self->{error} = "cannot create test directory" && return 0 );
 
     for my $dir ('html','cgi-bin') {
-        #die "cannot create test files"
-        return 0
-            unless (copy_files("vhost/$dir","$directory/$dir"));
+        unless (copy_files("vhost/$dir","$directory/$dir")) {
+            $self->{error} = "cannot create test files";
+            return 0;
+        }
     }
 
     # prep database
     eval "use Test::Database";
-    return 0    if($@);
+    if($@) {
+        $self->{error} = "Unable to load Test::Database: $@";
+        return 0;
+    }
 
     my $td1 = Test::Database->handle( 'mysql' );
-    return 0    unless($td1);
+    unless($td1) {
+        $self->{error} = "Unable to load  a test database instance";
+        return 0;
+    }
 
     create_mysql_databases($td1,@sql);
 
@@ -81,7 +89,10 @@ sub prep {
                         qw(driver database dbfile dbhost dbport dbuser dbpass);
 
     # prep config files
-    return 0    unless( create_config(\%db_config) );
+    unless( create_config(\%db_config) ) {
+        $self->{error} = "Failed to create config file";
+        return 0;
+    }
 
     return 1;
 }
@@ -104,6 +115,7 @@ sub cleanup {
 
 sub labyrinth {
     my ($self,@plugins) = @_;
+    $self->{error} = '';
 
     eval {
         # configure labyrinth instance
@@ -119,20 +131,23 @@ sub labyrinth {
         load_plugins( @plugins );
     };
 
-    return 0 if($@);
-    return 1;
+    return 1    unless($@);
+    $self->{error} = "Failed to load Labyrinth: $@";
+    return 0;
 }
 
 sub action {
     my ($self,$action) = @_;
+    $self->{error} = '';
 
     eval {
         # run plugin action
         $self->{labyrinth}->action($action);
     };
 
-    return 0 if($@);
-    return 1;
+    return 1    unless($@);
+    $self->{error} = "Failed to run action: $action: $@";
+    return 0;
 }
 
 sub vars {
@@ -157,6 +172,11 @@ sub set_params {
     for my $name (keys %hash) {
         $cgiparams{$name} = $hash{$name}
     }
+}
+
+sub error {
+    my ($self) = @_;
+    return $self->{error};
 }
 
 #----------------------------------------------------------------------------
