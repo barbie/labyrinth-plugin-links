@@ -56,7 +56,8 @@ sub prep {
     mkpath($directory) or die "cannot create test directory";
 
     for my $dir ('html','cgi-bin') {
-        die "cannot create test files"
+        #die "cannot create test files"
+        return 0
             unless (copy_files("vhost/$dir","$directory/$dir"));
     }
 
@@ -104,24 +105,34 @@ sub cleanup {
 sub labyrinth {
     my ($self,@plugins) = @_;
 
-    # configure labyrinth instance
-    $self->{labyrinth} = Labyrinth->new;
+    eval {
+        # configure labyrinth instance
+        $self->{labyrinth} = Labyrinth->new;
 
-    Labyrinth::Variables::init();   # initial standard variable values
+        Labyrinth::Variables::init();   # initial standard variable values
 
-    UnPublish();                    # Start a fresh slate
-    LoadSettings($config);          # Load All Global Settings
+        UnPublish();                    # Start a fresh slate
+        LoadSettings($config);          # Load All Global Settings
 
-    DBConnect();
+        DBConnect();
 
-    load_plugins( @plugins );
+        load_plugins( @plugins );
+    };
+
+    return 0 if($@);
+    return 1;
 }
 
 sub action {
     my ($self,$action) = @_;
 
-    # run plugin action
-    $self->{labyrinth}->action($action);
+    eval {
+        # run plugin action
+        $self->{labyrinth}->action($action);
+    };
+
+    return 0 if($@);
+    return 1;
 }
 
 sub vars {
