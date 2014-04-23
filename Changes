@@ -3,6 +3,7 @@ Changes for the Labyrinth-Plugin-Links
 
         - skip functional tests if we cannot create test environment.
         - added error reporting to test handler.
+        - more diagnostics added to test suite.
 
 1.04	2014-04-17
         - extended protocols acceptable in href string.

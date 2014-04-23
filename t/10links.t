@@ -209,15 +209,20 @@ my $loader = Fake::Loader->new;
 my $dir = $loader->directory;
 
 my $res = $loader->prep("$dir/cgi-bin/db/plugin-base.sql","t/data/test-base.sql");
+diag($loader->error)    unless($res);
+
 SKIP: {
     skip "Unable to prep the test environment", 43  unless($res);
 
-    is($loader->labyrinth('Labyrinth::Plugin::Links'),1);
+    $res = is($loader->labyrinth('Labyrinth::Plugin::Links'),1);
+    diag($loader->error)    unless($res);
 
     # -------------------------------------------------------------------------
     # Public methods
 
-    is($loader->action('Links::List'),1);
+    $res = is($loader->action('Links::List'),1);
+    diag($loader->error)    unless($res);
+
     my $vars = $loader->vars;
     is_deeply($vars,$test_vars,'stored variables are the same');
 
@@ -232,7 +237,9 @@ SKIP: {
         { loggedin => 1, loginid => 1 } );
 
     # test basic admin
-    is($loader->action('Links::Admin'),1);
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_vars->{links},'stored variables are the same');
 
@@ -243,7 +250,9 @@ SKIP: {
         { loggedin => 1, loginid => 1, data => undef } );
 
     # test adding a link
-    is($loader->action('Links::Add'),1);
+    $res = is($loader->action('Links::Add'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data}{ddcats},$test_add->{ddcats},'dropdown variables are the same');
 
@@ -255,7 +264,9 @@ SKIP: {
         { linkid => 1 } );
 
     # test editing a link
-    is($loader->action('Links::Edit'),1);
+    $res = is($loader->action('Links::Edit'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_edit,'stored variables are the same');
 
@@ -274,7 +285,9 @@ SKIP: {
 
     for my $href (keys %hrefs) {
         $loader->set_params( href => $href );
-        is($loader->action('Links::CheckLink'),1);
+        $res = is($loader->action('Links::CheckLink'),1);
+        diag($loader->error)    unless($res);
+
         my $params = $loader->params;
         is($params->{href},$hrefs{$href});
     }
@@ -287,7 +300,9 @@ SKIP: {
     is($loader->labyrinth('Labyrinth::Plugin::Links'),1);
 
     # test basic admin
-    is($loader->action('Links::CatAdmin'),1);
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_cats,'stored variables are the same');
 
@@ -297,7 +312,6 @@ SKIP: {
         $loader,
         { loggedin => 1, loginid => 1, data => undef },
         { catid => 1 } );
-
 
     # test editing a link
     is($loader->action('Links::CatEdit'),1);
@@ -323,7 +337,9 @@ SKIP: {
         { LISTED => [ 1 ], doaction => 'Delete' } );
 
     # test delete via admin
-    is($loader->action('Links::Admin'),1);
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{links},'stored variables are the same');
 
@@ -335,7 +351,9 @@ SKIP: {
         { LISTED => [ 1 ], doaction => 'Delete' } );
 
     # test delete via admin
-    is($loader->action('Links::CatAdmin'),1);
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{cats},'stored variables are the same');
 
@@ -347,8 +365,11 @@ SKIP: {
         { 'category' => 'Test', 'orderno' => '4', 'catid' => '' } );
 
     # test saving a (new and existing) category
-    is($loader->action('Links::CatSave'),1);
-    is($loader->action('Links::CatAdmin'),1);
+    $res = is($loader->action('Links::CatSave'),1);
+    diag($loader->error)    unless($res);
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{newcats},'stored variables are the same');
 
@@ -360,8 +381,11 @@ SKIP: {
         { 'body' => '<p>Blah Blah Blah</p>', 'href' => 'http://example.com', 'title' => 'Test Link', 'catid' => '4', 'linkid' => '' } );
 
     # test saving a (new and existing) link
-    is($loader->action('Links::Save'),1);
-    is($loader->action('Links::Admin'),1);
+    $res = is($loader->action('Links::Save'),1);
+    diag($loader->error)    unless($res);
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     #use Data::Dumper;
     #diag(Dumper($vars->{data}));
@@ -375,8 +399,11 @@ SKIP: {
         { 'category' => 'Another Test', 'orderno' => '', 'catid' => '' } );
 
     # test saving a (new and existing) category without order
-    is($loader->action('Links::CatSave'),1);
-    is($loader->action('Links::CatAdmin'),1);
+    $res = is($loader->action('Links::CatSave'),1);
+    diag($loader->error)    unless($res);
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{newcats2},'stored variables are the same');
 }
