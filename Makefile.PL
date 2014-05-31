@@ -15,7 +15,7 @@ WriteMakefile(
     PREREQ_PM           => {
 
         # prereqs
-        'Labyrinth'             => '5.10',
+        'Labyrinth'             => '5.22',
 
         # required by Labyrinth, but also in tests
         'Config::IniFiles'      => '0',

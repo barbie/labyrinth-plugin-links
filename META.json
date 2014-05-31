@@ -41,7 +41,7 @@
         "runtime" : {
             "requires" : {
               "perl": "5.006",
-              "Labyrinth": "5.10"
+              "Labyrinth": "5.22"
             }
         }
     },

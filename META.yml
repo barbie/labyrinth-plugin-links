@@ -11,7 +11,7 @@ installdirs:              site
 
 requires:
   perl:                   5.006
-  Labyrinth:              5.10
+  Labyrinth:              5.22
 recommends:
   Test::CPAN::Meta:       0
   Test::CPAN::Meta::JSON: 0
