@@ -4,7 +4,7 @@ use strict;
 use lib qw(t/lib);
 use Fake::Loader;
 
-use Test::More tests => 43;
+use Test::More tests => 89;
 
 my $test_vars = {
     'testing' => '0',
@@ -117,56 +117,222 @@ my $test_data = {
             'catid' => '4'
         }
     ],
-    'newlinks' => [
-        {
-            'body' => undef,
-            'href' => 'http://www.example.com',
-            'category' => 'Category 2',
-            'title' => 'Example Link 2',
-            'orderno' => '2',
-            'catid' => '2',
-            'linkid' => '2'
-        },
-        {
-            'body' => undef,
-            'href' => 'http://www.example.com',
-            'category' => 'Category 3',
-            'title' => 'Example Link 3',
-            'orderno' => '3',
-            'catid' => '3',
-            'linkid' => '3'
-        },
-        {
-            'body' => '<p>Blah Blah Blah</p>',
-            'href' => 'http://example.com',
-            'category' => 'Test',
-            'title' => 'Test Link',
-            'orderno' => '4',
-            'catid' => '4',
-            'linkid' => '4'
-        }
+    'newlinks2' => [
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 1',
+             'title' => 'Example Link 1',
+             'orderno' => '1',
+             'catid' => '1',
+             'linkid' => '1'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 2',
+             'title' => 'Example Link 2',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '2'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 3',
+             'title' => 'Example Link 3',
+             'orderno' => '3',
+             'catid' => '3',
+             'linkid' => '3'
+           }
+    ],
+    'newlinks3' => [
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 1',
+             'title' => 'Example Link 1',
+             'orderno' => '1',
+             'catid' => '1',
+             'linkid' => '1'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 2',
+             'title' => 'Example Link 2',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '2'
+           },
+           {
+             'body' => 'Labyrinth',
+             'href' => 'http://labyrinth.missbarbell.co.uk',
+             'category' => 'Category 2',
+             'title' => 'Labyrinth',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '4'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 3',
+             'title' => 'Example Link 3',
+             'orderno' => '3',
+             'catid' => '3',
+             'linkid' => '3'
+           }
+    ],
+    'newlinks4' => [
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 1',
+             'title' => 'Example Link 1',
+             'orderno' => '1',
+             'catid' => '1',
+             'linkid' => '1'
+           },
+           {
+             'body' => 'Labyrinth',
+             'href' => 'http://labyrinth.missbarbell.co.uk',
+             'category' => 'Category 2',
+             'title' => 'Labyrinth',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '4'
+           },
+           {
+             'body' => 'Labyrinth2',
+             'href' => 'http://labyrinth.technology',
+             'category' => 'Category 2',
+             'title' => 'Labyrinth2',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '2'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 3',
+             'title' => 'Example Link 3',
+             'orderno' => '3',
+             'catid' => '3',
+             'linkid' => '3'
+           }
+    ],
+    'dellinks' => [
+           {
+             'body' => 'Labyrinth',
+             'href' => 'http://labyrinth.missbarbell.co.uk',
+             'category' => 'Category 2',
+             'title' => 'Labyrinth',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '4'
+           },
+           {
+             'body' => 'Labyrinth2',
+             'href' => 'http://labyrinth.technology',
+             'category' => 'Category 2',
+             'title' => 'Labyrinth2',
+             'orderno' => '2',
+             'catid' => '2',
+             'linkid' => '2'
+           },
+           {
+             'body' => undef,
+             'href' => 'http://www.example.com',
+             'category' => 'Category 3',
+             'title' => 'Example Link 3',
+             'orderno' => '3',
+             'catid' => '3',
+             'linkid' => '3'
+           }
     ],
     'newcats2' => [
-        {
-            'category' => 'Another Test',
-            'orderno' => '1',
-            'catid' => '5'
-        },
-        {
-            'category' => 'Category 2',
-            'orderno' => '2',
-            'catid' => '2'
-        },
-        {
-            'category' => 'Category 3',
-            'orderno' => '3',
-            'catid' => '3'
-        },
-        {
-            'category' => 'Test',
-            'orderno' => '4',
-            'catid' => '4'
-        }
+           {
+             'category' => 'Category 2',
+             'orderno' => '2',
+             'catid' => '2'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           }
+    ],
+    'newcats3' => [
+           {
+             'category' => 'Another Test',
+             'orderno' => '1',
+             'catid' => '5'
+           },
+           {
+             'category' => 'Category 2',
+             'orderno' => '2',
+             'catid' => '2'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           }
+    ],
+    'newcats4' => [
+           {
+             'category' => 'Another Test',
+             'orderno' => '1',
+             'catid' => '5'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           },
+           {
+             'category' => 'Update Test',
+             'orderno' => '5',
+             'catid' => '2'
+           }
+    ],
+    'delcats' => [
+           {
+             'category' => 'Another Test',
+             'orderno' => '1',
+             'catid' => '5'
+           },
+           {
+             'category' => 'Category 3',
+             'orderno' => '3',
+             'catid' => '3'
+           },
+           {
+             'category' => 'Test',
+             'orderno' => '4',
+             'catid' => '4'
+           },
+           {
+             'category' => 'Update Test',
+             'orderno' => '5',
+             'catid' => '2'
+           }
     ]
 };
 
@@ -229,7 +395,39 @@ SKIP: {
     # -------------------------------------------------------------------------
     # Admin Link methods
 
-    # TODO - test bad access
+    # test bad access
+
+    # refresh instance
+    refresh(
+        $loader,
+        { loggedin => 0, loginid => 2 } );
+
+    # test bad access to admin
+    for my $call (('Links::Admin','Links::Add','Links::Edit','Links::Save','Links::Delete',
+                   'Links::CatAdmin','Links::CatEdit','Links::CatSave','Links::CatDelete')) {
+        $res = is($loader->action($call),1);
+        diag($loader->error)    unless($res);
+
+        $vars = $loader->vars;
+        is($vars->{data},undef,"no permission: $call");
+    }
+    
+
+    # test no records
+    for my $call ('Links::Edit','Links::Save','Links::CatEdit','Links::CatSave') {
+        refresh(
+            $loader,
+            { loggedin => 1, loginid => 1 },
+            { linkid => 9, catid => 9 });
+
+        $res = is($loader->action($call),1);
+        diag($loader->error)    unless($res);
+
+        $vars = $loader->vars;
+        is($vars->{data},undef,"no stored records: $call");
+    }
+
+    # test regular access
 
     # refresh instance
     refresh(
@@ -293,6 +491,56 @@ SKIP: {
     }
 
 
+    # refresh instance
+    refresh(
+        $loader,
+        { loggedin => 1, loginid => 1, data => undef },
+        { 'title' => '', 'body' => 'blah', 'catid' => '2' } );
+
+    # test saving a (new and existing) category without order
+    $res = is($loader->action('Links::Save'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is($vars->{thanks},undef,'failed to saved');
+
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is_deeply($vars->{data},$test_data->{newlinks2},'previous list remains');
+
+    refresh(
+        $loader,
+        { loggedin => 1, loginid => 1, data => undef },
+        { 'title' => 'Labyrinth', 'body' => 'Labyrinth', 'href' => 'http://labyrinth.missbarbell.co.uk', 'catid' => '2', 'linkid' => 0 } );
+
+    # test saving a (new and existing) category without order
+    $res = is($loader->action('Links::Save'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is($vars->{thanks},1,'successful save');
+
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is_deeply($vars->{data},$test_data->{newlinks3},'new link added');
+    
+    refresh(
+        $loader,
+        { loggedin => 1, loginid => 1, data => undef, thanks => 0 },
+        { 'title' => 'Labyrinth2', 'body' => 'Labyrinth2', 'href' => 'http://labyrinth.technology', 'catid' => '2', 'linkid' => 2 } );
+
+    # test saving a (new and existing) category without order
+    $res = is($loader->action('Links::Save'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is($vars->{thanks},1,'successful save');
+
+    $res = is($loader->action('Links::Admin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is_deeply($vars->{data},$test_data->{newlinks4},'old link updated');
+
+    
     # -------------------------------------------------------------------------
     # Admin Link Category methods
 
@@ -339,10 +587,12 @@ SKIP: {
     # test delete via admin
     $res = is($loader->action('Links::Admin'),1);
     diag($loader->error)    unless($res);
-
     $vars = $loader->vars;
-    is_deeply($vars->{data},$test_data->{links},'stored variables are the same');
+    is_deeply($vars->{data},$test_data->{dellinks},'stored variables are the same');
 
+
+    # -------------------------------------------------------------------------
+    # Admin Categories Delete/Save methods - as we change the db
 
     # refresh instance
     refresh(
@@ -353,7 +603,6 @@ SKIP: {
     # test delete via admin
     $res = is($loader->action('Links::CatAdmin'),1);
     diag($loader->error)    unless($res);
-
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{cats},'stored variables are the same');
 
@@ -367,9 +616,9 @@ SKIP: {
     # test saving a (new and existing) category
     $res = is($loader->action('Links::CatSave'),1);
     diag($loader->error)    unless($res);
+
     $res = is($loader->action('Links::CatAdmin'),1);
     diag($loader->error)    unless($res);
-
     $vars = $loader->vars;
     is_deeply($vars->{data},$test_data->{newcats},'stored variables are the same');
 
@@ -377,19 +626,19 @@ SKIP: {
     # refresh instance
     refresh(
         $loader,
-        { loggedin => 1, loginid => 1, data => undef },
-        { 'body' => '<p>Blah Blah Blah</p>', 'href' => 'http://example.com', 'title' => 'Test Link', 'catid' => '4', 'linkid' => '' } );
+        { loggedin => 1, loginid => 1, data => undef, thanks => undef },
+        { 'category' => '', 'orderno' => '1', 'catid' => '0' } );
 
-    # test saving a (new and existing) link
-    $res = is($loader->action('Links::Save'),1);
+    # test saving a (new and existing) category without order
+    $res = is($loader->action('Links::CatSave'),1);
     diag($loader->error)    unless($res);
-    $res = is($loader->action('Links::Admin'),1);
-    diag($loader->error)    unless($res);
-
     $vars = $loader->vars;
-    #use Data::Dumper;
-    #diag(Dumper($vars->{data}));
-    is_deeply($vars->{data},$test_data->{newlinks},'stored variables are the same');
+    is($vars->{thanks},undef,'failed save');
+
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is_deeply($vars->{data},$test_data->{newcats2},'previous list remains');
 
 
     # refresh instance
@@ -401,11 +650,45 @@ SKIP: {
     # test saving a (new and existing) category without order
     $res = is($loader->action('Links::CatSave'),1);
     diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is($vars->{thanks},1,'successful save');
+
     $res = is($loader->action('Links::CatAdmin'),1);
     diag($loader->error)    unless($res);
-
     $vars = $loader->vars;
-    is_deeply($vars->{data},$test_data->{newcats2},'stored variables are the same');
+    is_deeply($vars->{data},$test_data->{newcats3},'new category added');
+
+
+    # refresh instance
+    refresh(
+        $loader,
+        { loggedin => 1, loginid => 1, data => undef, thanks => 0 },
+        { 'category' => 'Update Test', 'orderno' => '5', 'catid' => '2' } );
+
+    # test saving a (new and existing) category without order
+    $res = is($loader->action('Links::CatSave'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is($vars->{thanks},1,'successful update');
+
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+    is_deeply($vars->{data},$test_data->{newcats4},'category updated');
+
+    # refresh instance
+    refresh(
+        $loader,
+        { loggedin => 1, loginid => 1, data => undef },
+        { LISTED => [ 1 ], doaction => 'Delete' } );
+
+    # test delete via admin
+    $res = is($loader->action('Links::CatAdmin'),1);
+    diag($loader->error)    unless($res);
+    $vars = $loader->vars;
+#use Data::Dumper;
+#diag(Dumper($vars->{data}));
+    is_deeply($vars->{data},$test_data->{delcats},'stored variables are the same');
 }
 
 

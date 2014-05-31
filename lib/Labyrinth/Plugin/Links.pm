@@ -231,6 +231,7 @@ sub CatEdit {
 sub CatSave {
     return  unless AccessUser(EDITOR);
     return  unless AuthorCheck('GetCategoryByID','catid',EDITOR);
+
     for(keys %cat_fields) {
            if($cat_fields{$_}->{html} == 1) { $cgiparams{$_} = CleanHTML($cgiparams{$_}) }
         elsif($cat_fields{$_}->{html} == 2) { $cgiparams{$_} = CleanTags($cgiparams{$_}) }

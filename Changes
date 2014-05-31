@@ -2,6 +2,7 @@ Changes for the Labyrinth-Plugin-Links
 ======================================
 
         - upgrade pre-requisite to Labyrinth-5.22.
+        - extended test suite.
 
 1.05	2014-04-24
         - skip functional tests if we cannot create test environment.
