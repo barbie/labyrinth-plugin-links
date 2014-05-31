@@ -63,6 +63,8 @@ sub prep {
         }
     }
 
+    mkpath("$directory/html/cache") or ( $self->{error} = "cannot create cache directory" && return 0 );
+
     # prep database
     eval "use Test::Database";
     if($@) {
