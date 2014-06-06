@@ -378,7 +378,7 @@ my $res = $loader->prep("$dir/cgi-bin/db/plugin-base.sql","t/data/test-base.sql"
 diag($loader->error)    unless($res);
 
 SKIP: {
-    skip "Unable to prep the test environment", 43  unless($res);
+    skip "Unable to prep the test environment", 89  unless($res);
 
     $res = is($loader->labyrinth('Labyrinth::Plugin::Links'),1);
     diag($loader->error)    unless($res);
