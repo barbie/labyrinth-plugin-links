@@ -3,7 +3,7 @@ package Labyrinth::Plugin::Links;
 use warnings;
 use strict;
 
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 
 =head1 NAME
 

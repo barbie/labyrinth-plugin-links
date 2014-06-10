@@ -1,6 +1,6 @@
 {
     "name": "Labyrinth-Plugin-Links",
-    "version": "1.06",
+    "version": "1.07",
     "abstract": "Links plugin for the Labyrinth framework",
     "author": [
         "Barbie (BARBIE) <barbie@cpan.org>"
@@ -49,7 +49,7 @@
     "provides": {
         "Labyrinth::Plugin::Links": {
             "file": "lib/Labyrinth/Plugin/Links.pm",
-            "version": "1.06"
+            "version": "1.07"
         }
     },
     "no_index": {
