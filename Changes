@@ -1,6 +1,9 @@
 Changes for the Labyrinth-Plugin-Links
 ======================================
 
+        - fixed license fields in META.json to be lists.
+        - added homepage to META resources.
+
 1.07	2014-06-10
         - fixed skip test count.
 
